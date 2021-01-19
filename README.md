@@ -8,3 +8,5 @@
 4. Steps to Run My Application - 
 a) Run the DB.java file. If the output is "Connection Ok", that means it has successfully connected to postgresql, and we can move forward. In case the out put is "Connection Failed" then retry.
 b) Now go to todo.java file and click run. The To-Do List should now appear on your screen.
+
+The project has not been completed yet, time spent: 4-5 Hours. 
