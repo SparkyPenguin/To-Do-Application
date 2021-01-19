@@ -78,28 +78,51 @@ public class todo extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String imp=textField.getText();
-					String other=textArea.getText();
-					pst=(PreparedStatement)con.prepareStatement("insert into todolist(title,priority,state,date)values(?,?,?,?)");
-					pst.setString(1, title);
-					pst.setString(2, priority);
-					pst.setString(3, state);
-					pst.setDate(4, date);
+					String Title=textField.getText();
+					String Priority=textArea.getText();
+					String State=textArea.getText();
+					String Date=textArea.getText();
+					System.out.println(Title+" "+Priority+" "+State+" "+Date);
+					System.out.println("debug 1");
+					pst=(PreparedStatement)con.prepareStatement("insert into todolist values(?,?,?,?)");
+					pst.setString(1, Title);
+					pst.setString(2, Priority);
+					pst.setString(3, State);
+					pst.setString(4, Date);
+					System.out.println("debug 2");
 					pst.executeUpdate();
+//					System.out.println("debug 3");
+	
 					JOptionPane.showMessageDialog(null, "task added");
+					pst=(PreparedStatement)con.prepareStatement("select * from todolist");
+		            ResultSet rs1 = pst.executeQuery();
+		            Vector head = new Vector();
+		            head.addElement("Title");
+		            head.addElement("Priority");
+		            head.addElement("State");
+		            head.addElement("Date");	            
+		            Vector rows=new Vector();		            
+		            while (rs1.next()) {
+		                Vector innerVector = new Vector();
+		                innerVector.addElement(rs1.getObject("Title"));
+		                innerVector.addElement(rs1.getObject("Priority"));
+		                innerVector.addElement(rs1.getObject("State"));
+		                innerVector.addElement(rs1.getObject("Date"));
+		                rows.addElement(innerVector);
+		            }          
+		            javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(rows,head);
+		            table.setModel(model);
 					textField.setText("");
 					textArea.setText("");
 				}
 				catch (Exception e2) {
 					System.out.println(e2.getMessage());
 				}
-				
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.setBounds(238, 593, 99, 21);
 		contentPane.add(btnNewButton);
-		
 		JButton btnNewButton_1 = new JButton("UPDATE");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,27 +152,28 @@ public class todo extends JFrame {
 						Vector v2 = new Vector();
 						for(int i=1;i<=a;i++)
 						{
-							v2.add(rs.getString("id"));
-							v2.add(rs.getString("important"));
-							v2.add(rs.getString("other"));
+							v2.add(rs.getString("Title"));
+							v2.add(rs.getString("Priority"));
+							v2.add(rs.getString("State"));
+							v2.add(rs.getDate("Date"));
 						}
 						df.addRow(v2);
-						
-						
 					}
 				}
 				catch (Exception e2) {
 					System.out.println(e2.getMessage());
 				}
-				
-
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(471, 593, 99, 21);
 		contentPane.add(btnNewButton_1);
-		
 		JButton btnNewButton_2 = new JButton("DELETE");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_2.setBounds(741, 593, 99, 21);
 		contentPane.add(btnNewButton_2);
@@ -161,7 +185,7 @@ public class todo extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Priority");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(80, 181, 99, 13);
+		lblNewLabel_2.setBounds(80, 181, 99, 21);
 		contentPane.add(lblNewLabel_2);
 		
 		textField = new JTextField();
