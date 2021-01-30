@@ -91,17 +91,13 @@ public class todo extends JFrame {
 					String State=textField_1.getText();
 					String Date=textField_2.getText();
 					String Task_ID=textField_3.getText();
-//					System.out.println(Title+" "+Priority+" "+State+" "+Date);
-//					System.out.println("debug 1");
 					pst=(PreparedStatement)con.prepareStatement("insert into todolist values(?,?,?,?,?)");
 					pst.setInt(1,Integer.parseInt(Task_ID));
 					pst.setString(2, Title);
 					pst.setString(3, State);
 					pst.setString(4, Date);
 					pst.setString(5, Priority);
-//					System.out.println("debug 2");
 					pst.executeUpdate();
-//					System.out.println("debug 3");
 	
 					JOptionPane.showMessageDialog(null, "task added");
 					textField_3.setText("");
@@ -121,9 +117,7 @@ public class todo extends JFrame {
 		            Vector rows=new Vector();		            
 		            while (rs1.next()) {
 		                Vector innerVector = new Vector();
-		                //System.out.println("debug 4");
 		                innerVector.addElement(rs1.getObject("Task_ID"));
-		                //System.out.println("debug 5");
 		                innerVector.addElement(rs1.getObject("Title"));
 		                innerVector.addElement(rs1.getObject("State"));
 		                innerVector.addElement(rs1.getObject("Date"));
@@ -145,9 +139,6 @@ public class todo extends JFrame {
 		System.out.println("Update Button");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				DefaultTableModel df = (DefaultTableModel)table.getModel();
-//				int s = table.getSelectedRow();
-//				int id= Integer.parseInt(df.getValueAt(s,0).toString());
 				try {
 					
 					String Title=textField.getText();
@@ -157,16 +148,13 @@ public class todo extends JFrame {
 					int Task_ID=Integer.parseInt(textField_3.getText());
 					
 					pst=con.prepareStatement("update todolist set \"Title\"=?,\"State\"=?,\"Date\"=?,\"Priority\"=? where \"Task_ID\"=?");
-					//System.out.println("debug 1");
 					pst.setString(1, Title);
 					pst.setString(2, State);
 					pst.setString(3, Date);
 					pst.setString(4, Priority);
 					pst.setInt(5, Task_ID); 
 					
-					//System.out.println("debug 2");
 					int x=pst.executeUpdate();
-					//System.out.println("debug 3");
 					JOptionPane.showMessageDialog(null, "list updated");
 					
 					textField_3.setText("");
@@ -186,9 +174,7 @@ public class todo extends JFrame {
 		            Vector rows=new Vector();		            
 		            while (rs1.next()) {
 		                Vector innerVector = new Vector();
-		                //System.out.println("debug 4");
 		                innerVector.addElement(rs1.getObject("Task_ID"));
-		                //System.out.println("debug 5");
 		                innerVector.addElement(rs1.getObject("Title"));
 		                innerVector.addElement(rs1.getObject("State"));
 		                innerVector.addElement(rs1.getObject("Date"));
